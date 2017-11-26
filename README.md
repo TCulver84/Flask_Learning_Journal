@@ -14,20 +14,21 @@ For Example - in app.py
 2. forms.py is called in forms.EntryForm() to associate the object with a variable
 3. models.Entry.create takes the data within the EntryForm() and posts it to the peewee database
 
-    @app.route('/entries/add', methods=('GET', 'POST'))
-    def new_entry():
-        """Show new.html, call appropriate form and strip data into database"""
-        form = forms.EntryForm()
-        if form.validate_on_submit():
-            models.Entry.create(title=form.title.data.strip(),
-                                date=form.date.data,
-                                time_spent=form.time_spent.data.strip(),
-                                resources_to_remember=
-                                    form.resources_to_remember.data.strip(),
-                                what_i_learned=form.what_i_learned.data.strip())
-            flash("Message posted! Thanks!", "success")
-            return redirect(url_for('entries'))
-        return render_template('new.html', form=form)
+
+        @app.route('/entries/add', methods=('GET', 'POST'))
+        def new_entry():
+            """Show new.html, call appropriate form and strip data into database"""
+            form = forms.EntryForm()
+            if form.validate_on_submit():
+                models.Entry.create(title=form.title.data.strip(),
+                                    date=form.date.data,
+                                    time_spent=form.time_spent.data.strip(),
+                                    resources_to_remember=
+                                        form.resources_to_remember.data.strip(),
+                                    what_i_learned=form.what_i_learned.data.strip())
+                flash("Message posted! Thanks!", "success")
+                return redirect(url_for('entries'))
+            return render_template('new.html', form=form)
 
 
 Motivation
